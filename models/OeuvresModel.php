@@ -6,7 +6,7 @@ require_once('Database.php');
 
 class OeuvresModel extends Database
 {
-    // RECHERCHE UNE OEUVRE PAR SON TITRE
+    // RECHERCHE UNE OEUVRE PAR SON ID
     public function getOneArtworkById(int $id)
     {
         $req = "SELECT * FROM oeuvres WHERE id = ?";

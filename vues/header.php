@@ -15,7 +15,7 @@
         <nav>
             <ul>
                 <li><a href="index.php?route=oeuvres">Accueil</a></li>
-                <li><a href="index.php?route=ajouter.php">Ajouter une œuvre</a></li>
+                <li><a href="index.php?route=ajouter">Ajouter une œuvre</a></li>
             </ul>
         </nav>
     </header>

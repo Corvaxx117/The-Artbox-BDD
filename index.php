@@ -15,6 +15,11 @@ if (array_key_exists("route", $_GET)) :
             $controller = new Controllers\OeuvresController;
             $controller->listAllArtworks();
             break;
+            // AFFICHAGE UNE OEUVRE
+        case 'oeuvre':
+            $controller = new Controllers\OeuvresController;
+            $controller->viewArtwork($_GET['id']);
+            break;
             // AFFICHAGE DU FORMULAIRE D'AJOUT D'UNE OEUVRE
         case 'ajouter':
             include 'vues/ajouter.php';

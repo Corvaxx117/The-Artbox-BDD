@@ -16,17 +16,21 @@ class OeuvresController
     {
         $this->oeuvresModel = new OeuvresModel();
     }
-
+    // AFFICHE TOUTES LES OEUVRES
     public function listAllArtworks()
     {
         $oeuvres = $this->oeuvresModel->getAllArtworks();
         include 'vues/oeuvres.php';
     }
 
+    //AFFICHE UNE OEUVRE
     public function viewArtwork($id)
     {
+        $error = [];
         // Vérifiez si un ID valide est fourni
         if (!$id || !is_numeric($id)) {
+            $error[] =  'l\'id de l\'oeuvre n\'est pas valide.';
+            $_SESSION['errors'] = $error;
             header('Location: index.php?page=oeuvres');
             exit();
         }
@@ -36,6 +40,8 @@ class OeuvresController
 
         // Si l'œuvre n'existe pas, redirigez vers la liste des œuvres
         if (!$oeuvre) {
+            $error[] =  'l\'oeuvre n\'existe pas.';
+            $_SESSION['errors'] = $error;
             header('Location: index.php?page=oeuvres');
             exit();
         }
@@ -43,6 +49,7 @@ class OeuvresController
         // Inclure la vue et transmettre les données
         include 'vues/oeuvre.php';
     }
+
     // VERIFICATION DES DONNEES ENVOYEES PAR L'UTILISATEUR
     public function formAddArtworkValidator(array &$errors)
     {
@@ -80,38 +87,43 @@ class OeuvresController
             // Valider les données du formulaire
             $this->formAddArtworkValidator($errors);
 
-            if (count($errors) == 0) {
+            if (count($errors) === 0) {
+                $data = [
+                    trim($_POST['titre']),
+                    trim($_POST['artiste']),
+                    trim($_POST['image']),
+                    trim($_POST['description']),
+                ];
 
-                // Vérifier si l'oeuvre n'existe pas déjà dans la bdd pour éviter les doublons
-                $oeuvreExist = $this->oeuvresModel->getOneArtworkById($_POST['titre']);
-
-                if (!empty($oeuvreExist)) {
-                    $errors[] = 'Cette oeuvre existe déjà !';
-                    // Stocker les données dans la session temporaire pour pré-remplir le formulaire
-                    $_SESSION['temp_data'] = $_POST;
-                } else {
-                    // SI PAS D'ERREUR :
-                    $data = [
-                        trim($_POST['titre']),
-                        trim($_POST['artiste']),
-                        trim($_POST['image']),
-                        trim($_POST['description']),
-
-                    ];
-                    // Ajout des données du nouvel utilisateur dans la bdd
+                try {
+                    // Tentative d'ajout dans la base de données
                     $this->oeuvresModel->addNewArtwork($data);
-                    $valids[] = 'Votre demande d\'ajout a bien été enregistrée.';
+
+                    // Si réussi, stocker un message de succès
+                    $valids[] = 'L\'œuvre a été ajoutée avec succès.';
                     $_SESSION['valids'] = $valids;
+                    unset($_SESSION['temp_data']);
+
+                    // Redirection vers la liste des œuvres
                     header('Location: index.php?route=oeuvres');
                     exit();
+                } catch (\Exception $e) {
+                    // Gérer les exceptions (doublons ou autres erreurs)
+                    if ($e->getMessage() === 'Duplication détectée : l’entrée existe déjà dans la base de données.') {
+                        $errors[] = 'Une œuvre avec ce titre existe déjà !';
+                    } else {
+                        $errors[] = 'Une erreur est survenue lors de l\'ajout de l\'œuvre. Veuillez réessayer.';
+                    }
                 }
-            } else {
-                // Si des erreurs sont présentes, stocker les données dans la session temporaire
-                $_SESSION['errors'] = $errors;
-                $_SESSION['temp_data'] = $_POST;
-                header('Location: index.php?route=ajouter');
-                exit();
             }
+
+            // Si des erreurs sont présentes, stocker les données et les erreurs dans la session
+            $_SESSION['errors'] = $errors;
+            $_SESSION['temp_data'] = $_POST;
+
+            // Redirection vers le formulaire
+            header('Location: index.php?route=ajouter');
+            exit();
         }
     }
 }

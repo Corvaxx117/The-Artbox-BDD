@@ -43,6 +43,40 @@ footer {
     font-size: 12px;
 }
 
+/* -----------------------------  MESSAGE D'ERREURS / VALIDATION ----- */
+
+.errorContainer {
+    display: inline-block;
+}
+
+.valids, 
+.errors {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px -5px rgb(19, 19, 19);
+  border: 2px solid black;
+  margin-bottom: 1em;
+}
+.valids>ul, 
+.errors>ul {
+  padding: 0;
+  margin: 0;
+}
+.errors>ul>li,
+.valids>ul>li {
+  display: flex;
+  align-items: center;
+  background-color: #ba3f3f;
+  color:#ffffff;
+  padding: 7px;
+  list-style: none;
+  white-space: nowrap;
+}
+.valids>ul>li {
+  background-color: #6ea14e;
+}
+
+
 
 
 #liste-oeuvres {

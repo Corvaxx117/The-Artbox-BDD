@@ -38,8 +38,17 @@ abstract class Database
     // AJOUT D'UN ELEMENT
     protected function addOne(string $table, string $columns, string $values, $data)
     {
-        $query = $this->bdd->prepare('INSERT INTO ' . $table . '(' . $columns . ') values (' . $values . ')');
-        $query->execute($data);
-        return $this->bdd->lastInsertId();
+        try {
+            $query = $this->bdd->prepare('INSERT INTO ' . $table . ' (' . $columns . ') VALUES (' . $values . ')');
+            $query->execute($data);
+            return $this->bdd->lastInsertId();
+        } catch (\PDOException $e) {
+            // Vérifier si l'erreur provient d'une violation de contrainte UNIQUE
+            if ($e->getCode() === '23000') { // Code d'erreur SQL pour contrainte UNIQUE
+                throw new \Exception('Duplication détectée : l’entrée existe déjà dans la base de données.');
+            } else {
+                throw $e; // Réexécute les autres erreurs non liées à la duplication
+            }
+        }
     }
 }

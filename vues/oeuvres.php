@@ -1,13 +1,16 @@
 <?php include('header.php'); ?>
+<div class="errorContainer">
+    <?php require_once 'errors.php'; ?>
+    <?php require_once 'valids.php'; ?>
+</div>
 
+<h1>Liste des Œuvres</h1>
 <div id="liste-oeuvres">
-    <h1>Liste des Œuvres</h1>
-
     <?php if (!empty($oeuvres)) : ?>
         <?php foreach ($oeuvres as $oeuvre) : ?>
             <article class="oeuvre">
                 <a href="index.php?route=oeuvre&id=<?= htmlspecialchars($oeuvre['id']); ?>">
-                    <img src="<?= htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
+                    <img src="img/<?= htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
                     <h2><?= htmlspecialchars($oeuvre['titre']); ?></h2>
                     <p class="description"><?= htmlspecialchars($oeuvre['description']); ?></p>
                 </a>

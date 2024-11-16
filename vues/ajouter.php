@@ -1,4 +1,8 @@
 <?php require 'header.php'; ?>
+<div class="errorContainer">
+    <?php require_once 'errors.php'; ?>
+    <?php require_once 'valids.php'; ?>
+</div>
 
 <form action="index.php?route=submitFormAddArtwork" method="POST">
     <div class="champ-formulaire">
