@@ -6,17 +6,17 @@ use Models\OeuvresModel;
 
 
 class OeuvresController extends BaseController
-{
-    protected $oeuvresModels;
 
+{
+    protected $oeuvresModel;
 
     public function __construct()
     {
-        $this->oeuvresModels = new OeuvresModel();
+        $this->oeuvresModel = new OeuvresModel();
     }
 
     // VERIFICATION DES DONNEES ENVOYEES PAR L'UTILISATEUR
-    public function formArtworkValidator(array &$errors)
+    public function formAddArtworkValidator(array &$errors)
     {
         // Si tous les champs sont rempli :
         if (
@@ -38,10 +38,6 @@ class OeuvresController extends BaseController
             // Description
             if (strlen($_POST['description']) < 2 || strlen($_POST['description']) > 650)
                 $errors[] = "Le champ nom doit contenir entre 2 et 650 caractères";
-            // Token
-            if ($_POST['shield'] != $_SESSION['shield']) {
-                $errors[] = 'Un problème est survenu lors de la soumission du formulaire.';
-            }
         }
     }
 
@@ -54,11 +50,12 @@ class OeuvresController extends BaseController
         // Vérifier si le formulaire est soumis correctement
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             // Valider les données du formulaire
-            $this->formArtworkValidator($errors);
+            $this->formAddArtworkValidator($errors);
 
             if (count($errors) == 0) {
+
                 // Vérifier si l'oeuvre n'existe pas déjà dans la bdd pour éviter les doublons
-                $oeuvreExist = $this->oeuvresModel->getOneArtwork($_POST['id']);
+                $oeuvreExist = $this->oeuvresModel->getOneArtwork($_POST['titre']);
 
                 if (!empty($oeuvreExist)) {
                     $errors[] = 'Cette oeuvre existe déjà !';
@@ -74,7 +71,7 @@ class OeuvresController extends BaseController
 
                     ];
                     // Ajout des données du nouvel utilisateur dans la bdd
-                    $resultOeuvresId = $this->oeuvresModel->addNewArtwork($data);
+                    $this->oeuvresModel->addNewArtwork($data);
                     $valids[] = 'Votre demande d\'ajout a bien été enregistrée.';
                 }
             } else {

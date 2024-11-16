@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('vues/header.php');
 
 // Récupération de l'id dans les paramètres de l'url
 $id = $_GET['id'];
@@ -67,4 +67,4 @@ if (!$o) {
     </div>
 </article>
 
-<?php include('footer.php'); ?>
+<?php include('vues/footer.php'); ?>

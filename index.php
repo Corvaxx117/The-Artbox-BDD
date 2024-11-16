@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php include('vues/header.php');
 include('oeuvres.php');
 ?>
 <div id="liste-oeuvres">
@@ -14,4 +14,4 @@ include('oeuvres.php');
     <?php } ?>
 </div>
 
-<?php include('footer.php'); ?>
+<?php include('vues/footer.php'); ?>

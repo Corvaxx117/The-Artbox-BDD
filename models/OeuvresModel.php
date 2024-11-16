@@ -4,11 +4,11 @@ namespace Models;
 
 class OeuvresModel extends Database
 {
-    // RECHERCHE UNE OEUVRE PAR SON ID
-    public function getOneArtwork(int $id)
+    // RECHERCHE UNE OEUVRE PAR SON TITRE
+    public function getOneArtwork(string $titre)
     {
-        $req = "SELECT * FROM oeuvres WHERE id = ?";
-        return $this->findOne($req, [$id]);
+        $req = "SELECT * FROM oeuvres WHERE titre = ?";
+        return $this->findOne($req, [$titre]);
     }
     // AJOUTE UNE NOUVELLE OEUVRE
     public function addNewArtwork(array $data): void
