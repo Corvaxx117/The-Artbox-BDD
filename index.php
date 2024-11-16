@@ -1,17 +1,40 @@
-<?php include('vues/header.php');
-include('oeuvres.php');
-?>
-<div id="liste-oeuvres">
-    <?php foreach ($oeuvres as $oeuvre) { ?>
-        <article class="oeuvre">
-            <!-- utilisation de la fonction htmlspecialchars pour éviter les failles xss  -->
-            <a href="oeuvre.php?id=<?= htmlspecialchars($oeuvre['id']); ?>">
-                <img src="<?= htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['artiste']); ?>">
-                <h2><?= htmlspecialchars($oeuvre['titre']); ?></h2>
-                <p class="description"><?= htmlspecialchars($oeuvre['description']); ?></p>
-            </a>
-        </article>
-    <?php } ?>
-</div>
+<?php
 
-<?php include('vues/footer.php'); ?>
+session_start();
+
+require_once('controllers/OeuvresController.php');
+$class = new Controllers\OeuvresController;
+
+
+// index.php
+if (array_key_exists("route", $_GET)) :
+    switch ($_GET['route']) {
+
+            // AFFICHAGE PAGE D'ACCUEIL
+        case 'oeuvres':
+            $controller = new Controllers\OeuvresController;
+            $controller->listAllArtworks();
+            break;
+
+        case 'submitFormAddArtwork':
+            $controller = new Controllers\OeuvresController;
+            $controller->submitFormAddArtwork();
+            break;
+
+            // SOUMISSION DU FORMULAIRE DE CREATION D'OEUVRE
+        case 'submitFormAddArtwork':
+            $controller = new Controllers\OeuvresController;
+            $controller->submitFormAddArtwork();
+            break;
+
+            // SI LA ROUTE N'EXISTE PAS, REDIRECTION VERS L'ACCUEIL DU SITE 
+        default:
+            header('location: index.php?route=oeuvres');
+            exit;
+            break;
+    }
+else :
+    // S'IL N'Y A PAS DE ROUTE REDIRIGE VERS L'ACCUEIL DU SITE 
+    header('Location: index.php?route=oeuvres');
+    exit;
+endif;

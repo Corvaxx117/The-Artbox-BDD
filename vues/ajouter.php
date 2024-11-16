@@ -1,6 +1,6 @@
 <?php require 'header.php'; ?>
 
-<form action="OeuvresController.php/submitFormAddArtwork" method="POST">
+<form action="index.php?route=submitFormAddArtwork" method="POST">
     <div class="champ-formulaire">
         <label for="titre">Titre de l'œuvre</label>
         <input type="text" name="titre" id="titre" required value="<?= isset($_SESSION['temp_data']['titre']) ? htmlspecialchars($_SESSION['temp_data']['titre']) : '' ?>">

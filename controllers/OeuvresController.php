@@ -15,6 +15,32 @@ class OeuvresController extends BaseController
         $this->oeuvresModel = new OeuvresModel();
     }
 
+    public function listAllArtworks()
+    {
+        $oeuvres = $this->oeuvresModel->getAllArtworks();
+        include 'vues/oeuvres.php';
+    }
+
+    public function viewArtwork($id)
+    {
+        // Vérifiez si un ID valide est fourni
+        if (!$id || !is_numeric($id)) {
+            header('Location: index.php?page=oeuvres');
+            exit();
+        }
+
+        // Récupérer l'œuvre correspondante depuis le modèle
+        $oeuvre = $this->oeuvresModel->getOneArtworkbyId($id);
+
+        // Si l'œuvre n'existe pas, redirigez vers la liste des œuvres
+        if (!$oeuvre) {
+            header('Location: index.php?page=oeuvres');
+            exit();
+        }
+
+        // Inclure la vue et transmettre les données
+        include 'vues/oeuvre.php';
+    }
     // VERIFICATION DES DONNEES ENVOYEES PAR L'UTILISATEUR
     public function formAddArtworkValidator(array &$errors)
     {
@@ -55,7 +81,7 @@ class OeuvresController extends BaseController
             if (count($errors) == 0) {
 
                 // Vérifier si l'oeuvre n'existe pas déjà dans la bdd pour éviter les doublons
-                $oeuvreExist = $this->oeuvresModel->getOneArtwork($_POST['titre']);
+                $oeuvreExist = $this->oeuvresModel->getOneArtworkById($_POST['titre']);
 
                 if (!empty($oeuvreExist)) {
                     $errors[] = 'Cette oeuvre existe déjà !';
