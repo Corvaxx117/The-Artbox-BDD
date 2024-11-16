@@ -8,7 +8,6 @@ use Models\OeuvresModel;
 
 
 class OeuvresController
-
 {
     protected $oeuvresModel;
 
@@ -49,7 +48,6 @@ class OeuvresController
         // Inclure la vue et transmettre les données
         include 'vues/oeuvre.php';
     }
-
     // VERIFICATION DES DONNEES ENVOYEES PAR L'UTILISATEUR
     public function formAddArtworkValidator(array &$errors)
     {
@@ -68,11 +66,21 @@ class OeuvresController
             if (strlen($_POST['artiste']) < 2 || strlen($_POST['artiste']) > 150)
                 $errors[] = "Le champ nom doit contenir entre 2 et 25 caractères";
             // Image
-            if (strlen($_POST['image']) < 2 || strlen($_POST['image']) > 200)
-                $errors[] = "Le champ nom doit contenir entre 2 et 25 caractères";
+            if (strlen($_POST['image']) < 2 || strlen($_POST['image']) > 1000) {
+                $errors[] = "Le chemin de l'image doit contenir entre 2 et 200 caractères.";
+            } else {
+                // format URL valide
+                if (!filter_var($_POST['image'], FILTER_VALIDATE_URL  &&
+                    !preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $_POST['image']))) {
+                    $errors[] = "L'URL de l'image n'est pas valide.";
+                }
+            }
             // Description
             if (strlen($_POST['description']) < 2 || strlen($_POST['description']) > 650)
                 $errors[] = "Le champ nom doit contenir entre 2 et 650 caractères";
+        } else {
+            // Si des champs manquent dans $_POST
+            $errors[] = "Tous les champs du formulaire doivent être remplis.";
         }
     }
 

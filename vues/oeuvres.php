@@ -10,7 +10,7 @@
         <?php foreach ($oeuvres as $oeuvre) : ?>
             <article class="oeuvre">
                 <a href="index.php?route=oeuvre&id=<?= htmlspecialchars($oeuvre['id']); ?>">
-                    <img src="img/<?= htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
+                    <img src="<?= IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
                     <h2><?= htmlspecialchars($oeuvre['titre']); ?></h2>
                     <p class="description"><?= htmlspecialchars($oeuvre['description']); ?></p>
                 </a>

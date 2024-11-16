@@ -1,4 +1,5 @@
 <?php include('header.php'); ?>
+
 <div class="errorContainer">
     <?php require_once 'errors.php'; ?>
     <?php require_once 'valids.php'; ?>
@@ -6,7 +7,7 @@
 
 <article id="detail-oeuvre">
     <div id="img-oeuvre">
-        <img src="img/<?php echo htmlspecialchars($oeuvre['image']); ?>" alt="le tableau : <?php echo htmlspecialchars($oeuvre['titre']); ?>">
+        <img src="<?= IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']); ?>" alt="une image du tableau <?php echo htmlspecialchars($oeuvre['titre']); ?>">
     </div>
     <div id="contenu-oeuvre">
         <h1><?php echo htmlspecialchars($oeuvre['titre']); ?></h1>
