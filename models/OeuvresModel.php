@@ -2,6 +2,8 @@
 
 namespace Models;
 
+require_once('Database.php');
+
 class OeuvresModel extends Database
 {
     // RECHERCHE UNE OEUVRE PAR SON TITRE
@@ -21,7 +23,7 @@ class OeuvresModel extends Database
     {
         $this->addOne(
             'oeuvres',
-            'titre, auteur, image, description',
+            'titre, artiste, image, description',
             '?,?,?,?',
             $data
         );

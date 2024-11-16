@@ -2,7 +2,7 @@
 
 <article id="detail-oeuvre">
     <div id="img-oeuvre">
-        <img src="<?php echo htmlspecialchars($oeuvre['image']); ?>" alt="<?php echo htmlspecialchars($oeuvre['titre']); ?>">
+        <img src="img/<?php echo htmlspecialchars($oeuvre['image']); ?>" alt="le tableau : <?php echo htmlspecialchars($oeuvre['titre']); ?>">
     </div>
     <div id="contenu-oeuvre">
         <h1><?php echo htmlspecialchars($oeuvre['titre']); ?></h1>

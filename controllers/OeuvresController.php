@@ -2,10 +2,12 @@
 
 namespace Controllers;
 
+require_once __DIR__ . '/../models/OeuvresModel.php';
+
 use Models\OeuvresModel;
 
 
-class OeuvresController extends BaseController
+class OeuvresController
 
 {
     protected $oeuvresModel;
@@ -47,7 +49,7 @@ class OeuvresController extends BaseController
         // Si tous les champs sont rempli :
         if (
             array_key_exists('titre', $_POST) &&
-            array_key_exists('auteur', $_POST) &&
+            array_key_exists('artiste', $_POST) &&
             array_key_exists('image', $_POST) &&
             array_key_exists('description', $_POST)
         ) {
@@ -56,7 +58,7 @@ class OeuvresController extends BaseController
             if (strlen($_POST['titre']) < 2 || strlen($_POST['titre']) > 150)
                 $errors[] = "Le champ prénom doit contenir entre 2 et 150 caractères";
             // Auteur
-            if (strlen($_POST['auteur']) < 2 || strlen($_POST['auteur']) > 150)
+            if (strlen($_POST['artiste']) < 2 || strlen($_POST['artiste']) > 150)
                 $errors[] = "Le champ nom doit contenir entre 2 et 25 caractères";
             // Image
             if (strlen($_POST['image']) < 2 || strlen($_POST['image']) > 200)
@@ -91,7 +93,7 @@ class OeuvresController extends BaseController
                     // SI PAS D'ERREUR :
                     $data = [
                         trim($_POST['titre']),
-                        trim($_POST['auteur']),
+                        trim($_POST['artiste']),
                         trim($_POST['image']),
                         trim($_POST['description']),
 
@@ -99,10 +101,16 @@ class OeuvresController extends BaseController
                     // Ajout des données du nouvel utilisateur dans la bdd
                     $this->oeuvresModel->addNewArtwork($data);
                     $valids[] = 'Votre demande d\'ajout a bien été enregistrée.';
+                    $_SESSION['valids'] = $valids;
+                    header('Location: index.php?route=oeuvres');
+                    exit();
                 }
             } else {
                 // Si des erreurs sont présentes, stocker les données dans la session temporaire
+                $_SESSION['errors'] = $errors;
                 $_SESSION['temp_data'] = $_POST;
+                header('Location: index.php?route=ajouter');
+                exit();
             }
         }
     }

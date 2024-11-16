@@ -7,7 +7,7 @@
     </div>
     <div class="champ-formulaire">
         <label for="artiste">Auteur de l'œuvre</label>
-        <input type="text" name="artiste" id="artiste" required value="<?= isset($_SESSION['temp_data']['auteur']) ? htmlspecialchars($_SESSION['temp_data']['auteur']) : '' ?>">
+        <input type="text" name="artiste" id="artiste" required value="<?= isset($_SESSION['temp_data']['artiste']) ? htmlspecialchars($_SESSION['temp_data']['artiste']) : '' ?>">
     </div>
     <div class="champ-formulaire">
         <label for="image">URL de l'image</label>

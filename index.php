@@ -15,10 +15,9 @@ if (array_key_exists("route", $_GET)) :
             $controller = new Controllers\OeuvresController;
             $controller->listAllArtworks();
             break;
-
-        case 'submitFormAddArtwork':
-            $controller = new Controllers\OeuvresController;
-            $controller->submitFormAddArtwork();
+            // AFFICHAGE DU FORMULAIRE D'AJOUT D'UNE OEUVRE
+        case 'ajouter':
+            include 'vues/ajouter.php';
             break;
 
             // SOUMISSION DU FORMULAIRE DE CREATION D'OEUVRE
