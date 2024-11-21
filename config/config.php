@@ -1,6 +1,6 @@
 <?php
 
-define("DB_HOST", 'localhost:8889');
-define("DB_NAME", 'the_artbox');
-define("DB_USER", 'Corvaxx');
-define("DB_PASS", 'Corvaxx117*!');
+define("DB_HOST", '****');
+define("DB_NAME", '****');
+define("DB_USER", '****');
+define("DB_PASS", '****');
