@@ -14,9 +14,15 @@
         <input type="text" name="artiste" id="artiste" required value="<?= isset($_SESSION['temp_data']['artiste']) ? htmlspecialchars($_SESSION['temp_data']['artiste']) : '' ?>">
     </div>
     <div class="champ-formulaire">
-        <label for="image">URL de l'image (exemple : https://...)</label>
-        <input type="url" name="image" id="image" placeholder="https://exemple.com/image.jpg" required value="<?= isset($_SESSION['temp_data']['artiste']) ? htmlspecialchars($_SESSION['temp_data']['artiste']) : '' ?>">
+        <label for="image">Nom de l'image </label>
+        <input type="text"
+            name="image"
+            id="image"
+            required value="<?= isset($_SESSION['temp_data']['image']) ? htmlspecialchars($_SESSION['temp_data']['image']) : '' ?>"
+            accept=".jpeg, .jpg, .png, .heic, .gif, .webp">
     </div>
+    <small>Extensions autorisées : JPEG, JPG, PNG, HEIC, WEBP</small>
+
     <div class="champ-formulaire">
         <label for="description">Description</label>
         <textarea name="description" id="description" required value="<?= isset($_SESSION['temp_data']['description']) ? htmlspecialchars($_SESSION['temp_data']['description']) : '' ?>" required value="<?= isset($_SESSION['temp_data']['image']) ? htmlspecialchars($_SESSION['temp_data']['image']) : '' ?>"></textarea>

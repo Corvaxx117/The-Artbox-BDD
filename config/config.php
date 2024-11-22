@@ -13,5 +13,5 @@ if (!defined('DB_PASS')) {
     define("DB_PASS", 'Corvaxx117*!');
 }
 if (!defined('IMAGE_BASE_URL')) {
-    define('IMAGE_BASE_URL', 'http://localhost:8888/FORMATION_OCR/HTML_CSS_PHP_amiel_julien/Premiers_pas_PHP/Amiel_Julien_1_the_artbox_102024/img/');
+    define('IMAGE_BASE_URL', 'http://localhost:8888/FORMATION_OCR/The_Artbox_Database/Amiel_Julien_1_the_artbox_102024/img/');
 }

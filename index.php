@@ -5,24 +5,24 @@ require_once __DIR__ . '/config/config.php';
 session_start();
 
 require_once('controllers/OeuvresController.php');
-$class = new Controllers\OeuvresController;
+// $class = new Controllers\OeuvresController;
 
 
 // index.php
 if (array_key_exists("route", $_GET)) :
     switch ($_GET['route']) {
 
-            // AFFICHAGE PAGE D'ACCUEIL
+            // AFFICHE LA PAGE D'ACCUEIL
         case 'oeuvres':
             $controller = new Controllers\OeuvresController;
             $controller->listAllArtworks();
             break;
-            // AFFICHAGE UNE OEUVRE
+            // AFFICHE UNE OEUVRE
         case 'oeuvre':
             $controller = new Controllers\OeuvresController;
             $controller->viewArtwork($_GET['id']);
             break;
-            // AFFICHAGE DU FORMULAIRE D'AJOUT D'UNE OEUVRE
+            // AFFICHE LE FORMULAIRE D'AJOUT D'UNE OEUVRE
         case 'ajouter':
             include 'vues/ajouter.php';
             break;

@@ -60,21 +60,22 @@ class OeuvresController
         ) {
             // Verification des champs
             // Titre
-            if (strlen($_POST['titre']) < 2 || strlen($_POST['titre']) > 150)
-                $errors[] = "Le champ prénom doit contenir entre 2 et 150 caractères";
+            if (strlen($_POST['titre']) < 2 || strlen($_POST['titre']) > 200)
+                $errors[] = "Le champ prénom doit contenir entre 2 et 200 caractères";
             // Auteur
-            if (strlen($_POST['artiste']) < 2 || strlen($_POST['artiste']) > 150)
-                $errors[] = "Le champ nom doit contenir entre 2 et 25 caractères";
+            if (strlen($_POST['artiste']) < 2 || strlen($_POST['artiste']) > 200)
+                $errors[] = "Le champ nom doit contenir entre 2 et 200 caractères";
             // Image
-            if (strlen($_POST['image']) < 2 || strlen($_POST['image']) > 1000) {
+            if (strlen($_POST['image']) < 2 || strlen($_POST['image']) > 200) {
                 $errors[] = "Le chemin de l'image doit contenir entre 2 et 200 caractères.";
-            } else {
-                // format URL valide
-                if (!filter_var($_POST['image'], FILTER_VALIDATE_URL  &&
-                    !preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $_POST['image']))) {
-                    $errors[] = "L'URL de l'image n'est pas valide.";
-                }
             }
+            //  else {
+            //     // Image (URL complète)
+            //     if (!filter_var($_POST['image'], FILTER_VALIDATE_URL)) {
+            //         $errors[] = "L'URL de l'image n'est pas valide.";
+            //     }
+            // !!! modifiez $errors[] = "Le chemin de l'image doit contenir entre 10 et 350 caractères.";
+            // }
             // Description
             if (strlen($_POST['description']) < 2 || strlen($_POST['description']) > 650)
                 $errors[] = "Le champ nom doit contenir entre 2 et 650 caractères";
