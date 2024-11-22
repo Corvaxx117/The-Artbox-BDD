@@ -1,17 +1,17 @@
 <?php
 
 if (!defined('DB_HOST')) {
-    define("DB_HOST", 'localhost:8889');
+    define("DB_HOST", getenv('DB_HOST') ?: 'localhost:8889');
 }
 if (!defined('DB_NAME')) {
-    define("DB_NAME", 'the_artbox');
+    define("DB_NAME", getenv('DB_NAME') ?: 'the_artbox');
 }
 if (!defined('DB_USER')) {
-    define("DB_USER", 'Corvaxx');
+    define("DB_USER", getenv('DB_USER') ?: 'Corvaxx');
 }
 if (!defined('DB_PASS')) {
-    define("DB_PASS", 'Corvaxx117*!');
+    define("DB_PASS", getenv('DB_PASS') ?: 'Corvaxx117*!');
 }
 if (!defined('IMAGE_BASE_URL')) {
-    define('IMAGE_BASE_URL', 'http://localhost:8888/FORMATION_OCR/The_Artbox_Database/Amiel_Julien_1_the_artbox_102024/img/');
+    define('IMAGE_BASE_URL', getenv('IMAGE_BASE_URL') ?: 'http://localhost:8888/FORMATION_OCR/The_Artbox_Database/Amiel_Julien_1_the_artbox_102024/img/');
 }
