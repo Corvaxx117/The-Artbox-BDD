@@ -5,8 +5,6 @@ require_once __DIR__ . '/config/config.php';
 session_start();
 
 require_once('controllers/OeuvresController.php');
-// $class = new Controllers\OeuvresController;
-
 
 // index.php
 if (array_key_exists("route", $_GET)) :
@@ -26,7 +24,6 @@ if (array_key_exists("route", $_GET)) :
         case 'ajouter':
             include 'vues/ajouter.php';
             break;
-
             // SOUMISSION DU FORMULAIRE DE CREATION D'OEUVRE
         case 'submitFormAddArtwork':
             $controller = new Controllers\OeuvresController;

@@ -3,7 +3,6 @@
 if (!defined('DB_HOST')) {
     define("DB_HOST", '****');
 }
-
 if (!defined('DB_NAME')) {
     define("DB_NAME", '****');
 }

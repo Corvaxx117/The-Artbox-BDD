@@ -3,6 +3,10 @@
 namespace Models;
 
 require('config/config.php');
+require('exception/DuplicateEntryException.php');
+
+use exception\DuplicateEntryException;
+
 
 abstract class Database
 {
@@ -45,7 +49,7 @@ abstract class Database
         } catch (\PDOException $e) {
             // Vérifier si l'erreur provient d'une violation de contrainte UNIQUE
             if ($e->getCode() === '23000') { // Code d'erreur SQL pour contrainte UNIQUE
-                throw new \Exception('Duplication détectée : l’entrée existe déjà dans la base de données.');
+                throw new DuplicateEntryException('Duplication détectée : l’entrée existe déjà dans la base de données.');
             } else {
                 throw $e; // Réexécute les autres erreurs non liées à la duplication
             }

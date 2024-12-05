@@ -14,7 +14,7 @@
         <input type="text" name="artiste" id="artiste" required value="<?= isset($_SESSION['temp_data']['artiste']) ? htmlspecialchars($_SESSION['temp_data']['artiste']) : '' ?>">
     </div>
     <div class="champ-formulaire">
-        <label for="image">Nom de l'image </label>
+        <label for="image">URL de l'image </label>
         <input type="text"
             name="image"
             id="image"
