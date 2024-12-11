@@ -1,2 +1,5 @@
 .DS_Store
 config.php
+/vendor/
+composer.json
+composer.lock
