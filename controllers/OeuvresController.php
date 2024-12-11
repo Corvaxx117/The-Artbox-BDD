@@ -68,38 +68,31 @@ class OeuvresController
             // Auteur
             if (strlen($_POST['artiste']) < 2 || strlen($_POST['artiste']) > 200)
                 $errors[] = "Le champ nom doit contenir entre 2 et 200 caractères";
-            // Vérification de l'image
-            if (isset($_POST['image']) && !empty($_POST['image'])) {
+            // Image (URL uniquement)
+            if (!empty($_POST['image'])) {
                 $imageUrl = trim($_POST['image']);
 
                 // Vérifier que l'entrée est une URL valide
                 if (!filter_var($imageUrl, FILTER_VALIDATE_URL)) {
                     $errors[] = "L'URL de l'image n'est pas valide.";
                 } else {
-                    // Vérifier via les en-têtes HTTP si le fichier est bien une image
-                    $headers = @get_headers($imageUrl, 1); // Récupérer les en-têtes HTTP
+                    // Vérifier si l'URL retourne un type MIME valide
+                    $headers = @get_headers($imageUrl, 1);
+                    $contentType = $headers['Content-Type'] ?? null;
 
-                    // Si les en-têtes HTTP sont obtenus, vérifier le type MIME
-                    if ($headers && isset($headers['Content-Type'])) {
-                        $contentType = is_array($headers['Content-Type']) ? $headers['Content-Type'][0] : $headers['Content-Type'];
-
-                        // Vérifier que le type MIME commence par "image/"
-                        if (strpos($contentType, 'image/') !== 0) {
-                            $errors[] = "Le fichier pointé par l'URL n'est pas une image valide.";
-                        }
-                    } else {
-                        // Si les en-têtes HTTP ne peuvent pas être obtenus
-                        $errors[] = "Impossible de vérifier le type de fichier pour l'URL fournie.";
+                    // Vérifier que le type MIME commence par "image/"
+                    if (!$contentType || strpos($contentType, 'image/') !== 0) {
+                        $errors[] = "L'URL ne pointe pas vers une image valide.";
                     }
                 }
             } else {
-                // Si le champ image est vide
-                $errors[] = "Le champ image est obligatoire.";
+                // Si aucune image n'est fournie
+                $errors[] = "Une image doit être fournie via une URL valide.";
             }
-            /*           QUESTIONS          */
-            // Comment faire en sorte que l'utilisateur puisse uploader une image,
-            // a la fois url et  à la fois depuis son dossier local?
-            // Comment l'afficher dans les deux cas ?
+            // Filegetcontents -> creer une ressource e charge en memoire le contenu de l'url
+            // getMimeType -> renvoie le type mime de la ressource
+            // mime_content_type -> renvoie le type mime de la ressource(pour les fichiers uploadés) -> meilleur moyen pour connaitre le type d'un fichier 
+            // utiliser le chemin relatif pour les images 
 
             // Description
             if (strlen($_POST['description']) < 2 || strlen($_POST['description']) > 650)
