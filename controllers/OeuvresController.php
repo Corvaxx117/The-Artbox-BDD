@@ -89,11 +89,6 @@ class OeuvresController
                 // Si aucune image n'est fournie
                 $errors[] = "Une image doit être fournie via une URL valide.";
             }
-            // Filegetcontents -> creer une ressource e charge en memoire le contenu de l'url
-            // getMimeType -> renvoie le type mime de la ressource
-            // mime_content_type -> renvoie le type mime de la ressource(pour les fichiers uploadés) -> meilleur moyen pour connaitre le type d'un fichier 
-            // utiliser le chemin relatif pour les images 
-
             // Description
             if (strlen($_POST['description']) < 2 || strlen($_POST['description']) > 650)
                 $errors[] = "Le champ nom doit contenir entre 2 et 650 caractères";

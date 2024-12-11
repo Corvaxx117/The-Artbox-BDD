@@ -10,7 +10,13 @@
         <?php foreach ($oeuvres as $oeuvre) : ?>
             <article class="oeuvre">
                 <a href="index.php?route=oeuvre&id=<?= htmlspecialchars($oeuvre['id']); ?>">
-                    <img src="<?= IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']); ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
+                    <?php
+                    // Vérifier si l'image est une URL ou un chemin relatif local
+                    $imageSrc = filter_var($oeuvre['image'], FILTER_VALIDATE_URL) ?
+                        htmlspecialchars($oeuvre['image']) :
+                        IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']);
+                    ?>
+                    <img src="<?= $imageSrc; ?>" alt="<?= htmlspecialchars($oeuvre['titre']); ?>">
                     <h2><?= htmlspecialchars($oeuvre['titre']); ?></h2>
                     <p class="description"><?= htmlspecialchars($oeuvre['description']); ?></p>
                 </a>

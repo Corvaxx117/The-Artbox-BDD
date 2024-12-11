@@ -7,7 +7,13 @@
 
 <article id="detail-oeuvre">
     <div id="img-oeuvre">
-        <img src="<?= IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']); ?>" alt="une image du tableau <?php echo htmlspecialchars($oeuvre['titre']); ?>">
+        <?php
+        // Vérifier si l'image est une URL ou un chemin relatif local
+        $imageSrc = filter_var($oeuvre['image'], FILTER_VALIDATE_URL) ?
+            htmlspecialchars($oeuvre['image']) :
+            IMAGE_BASE_URL . htmlspecialchars($oeuvre['image']);
+        ?>
+        <img src="<?= $imageSrc; ?>" alt="Une image du tableau <?= htmlspecialchars($oeuvre['titre']); ?>">
     </div>
     <div id="contenu-oeuvre">
         <h1><?php echo htmlspecialchars($oeuvre['titre']); ?></h1>
